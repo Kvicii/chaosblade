@@ -42,7 +42,7 @@ func Test_baseCommand_recordExpModel(t *testing.T) {
 				Command:    "docker",
 				SubCommand: "network delay",
 				Flag:       " --interface=eth0 --time=3000",
-				Status:     "Created",
+				Status:     Created,
 			}, false},
 		},
 		{
@@ -51,7 +51,7 @@ func Test_baseCommand_recordExpModel(t *testing.T) {
 				Command:    "network",
 				SubCommand: "delay",
 				Flag:       " --interface=eth0 --time=3000",
-				Status:     "Created",
+				Status:     Created,
 			}, false},
 		},
 	}
@@ -173,11 +173,7 @@ func (*MockSource) QueryExperimentModelByUid(uid string) (*data.ExperimentModel,
 	return nil, nil
 }
 
-func (*MockSource) ListExperimentModels() ([]*data.ExperimentModel, error) {
-	return make([]*data.ExperimentModel, 0), nil
-}
-
-func (*MockSource) QueryExperimentModelsByCommand(target string) ([]*data.ExperimentModel, error) {
+func (*MockSource) QueryExperimentModels(target, status, limit string, asc bool) ([]*data.ExperimentModel, error) {
 	return make([]*data.ExperimentModel, 0), nil
 }
 
@@ -205,10 +201,6 @@ func (*MockSource) QueryRunningPreByTypeAndProcess(programType string, processNa
 	return &data.PreparationRecord{}, nil
 }
 
-func (*MockSource) ListPreparationRecords() ([]*data.PreparationRecord, error) {
-	return make([]*data.PreparationRecord, 0), nil
-}
-
 func (*MockSource) UpdatePreparationRecordByUid(uid, status, errMsg string) error {
 	return nil
 }
@@ -219,4 +211,8 @@ func (*MockSource) UpdatePreparationPortByUid(uid, port string) error {
 
 func (*MockSource) UpdatePreparationPidByUid(uid, pid string) error {
 	return nil
+}
+
+func (*MockSource) QueryPreparationRecords(target, status, limit string, asc bool) ([]*data.PreparationRecord, error) {
+	return make([]*data.PreparationRecord, 0), nil
 }
